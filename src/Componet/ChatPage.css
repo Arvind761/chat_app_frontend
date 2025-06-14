@@ -1,23 +1,30 @@
+/* Fullscreen responsive chat container */
 .chat-container {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  margin: auto;
-  height: 90vh;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border: none;
+  border-radius: 0;
   overflow: hidden;
   font-family: sans-serif;
+  background-color: #e5ddd5; /* WhatsApp-like background */
 }
 
+/* Sticky header bar */
 .chat-header {
   padding: 10px;
   background-color: #075e54;
   color: white;
   font-weight: bold;
   text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
+/* Username input setup section */
 .chat-user-setup {
   display: flex;
   flex-direction: column;
@@ -42,14 +49,17 @@
   cursor: pointer;
 }
 
+/* Chat messages area */
 .chat-body {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  background-color: #e5ddd5;
 }
 
+/* Message input section */
 .chat-footer {
   padding: 10px;
   display: flex;
@@ -64,6 +74,7 @@
   border-radius: 5px;
 }
 
+/* Individual message bubble */
 .chat-bubble {
   margin: 5px 0;
   padding: 10px;
@@ -73,17 +84,20 @@
   word-wrap: break-word;
 }
 
+/* Sent by current user */
 .sent {
   background-color: #dcf8c6;
   align-self: flex-end;
 }
 
+/* Received message */
 .received {
   background-color: #fff;
   align-self: flex-start;
   border: 1px solid #ddd;
 }
 
+/* System messages like join/leave */
 .system-message {
   background-color: #f0f0f0;
   color: #555;
@@ -94,6 +108,7 @@
   border-radius: 8px;
 }
 
+/* Message metadata */
 .chat-user {
   font-weight: bold;
 }
@@ -108,13 +123,14 @@
   margin-top: 5px;
 }
 
+/* No message UI */
 .empty-chat {
   text-align: center;
   color: #888;
   margin-top: 20px;
 }
 
-/* ✅ Unified Chat Status Style */
+/* ✅ Seen/Unseen status style */
 .chat-status {
   font-size: 0.75rem;
   text-align: right;
@@ -127,4 +143,12 @@
 
 .chat-status.seen {
   color: blue;
+}
+
+/* Reset layout margins */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
