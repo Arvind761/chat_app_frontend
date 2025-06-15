@@ -16,7 +16,7 @@ function Home() {
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen(prev => !prev);
   };
 
   useEffect(() => {
@@ -27,6 +27,14 @@ function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setMenuOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -35,25 +43,38 @@ function Home() {
     <div className="landing-container">
       {/* ✅ Navbar */}
       <nav className="navbar">
-        <div className="logo">DavBro<span>App</span></div>
+  <div className="logo">DavBro<span>App</span></div>
 
-        <div className="hamburger" onClick={toggleMenu}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </div>
+  {/* ✅ Full menu on large screens */}
+  <div className="nav-links">
+    <a href="#product">Product</a>
+    <a href="#services">Services</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#contact">Contact</a>
+    <Link to="/login">Log In</Link>
+  </div>
 
-        <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
-          <a href="#product">Product</a>
-          <a href="#services">Services</a>
-          <a href="#privacy">Privacy</a>
-          <a href="#contact">Contact</a>
-          <Link to="/login">Log In</Link>
-         
-        </div>
-      </nav>
+  {/* ✅ Hamburger menu for mobile */}
+  <div className={`hamburger ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+    <span className="bar"></span>
+    <span className="bar"></span>
+    <span className="bar"></span>
+  </div>
+</nav>
 
-      {/*  Hero Section */}
+      {/* ✅ Mobile Overlay */}
+      {menuOpen && <div className="mobile-overlay" onClick={toggleMenu}></div>}
+
+      {/* ✅ Slide-in Sidebar */}
+      <div className={`mobile-sidebar ${menuOpen ? 'active' : ''}`}>
+        <a href="#product" onClick={toggleMenu}>Product</a>
+        <a href="#services" onClick={toggleMenu}>Services</a>
+        <a href="#privacy" onClick={toggleMenu}>Privacy</a>
+        <a href="#contact" onClick={toggleMenu}>Contact</a>
+        <Link to="/login" onClick={toggleMenu}>Log In</Link>
+      </div>
+
+      {/* ✅ Hero Section */}
       <div className="hero-section">
         <div className="hero-left">
           <h1>
@@ -62,14 +83,14 @@ function Home() {
           </h1>
           <p>
             Please don’t use it for personal or sensitive communication.
-
-I built this chat app because sometimes we all feel a little down or lonely — and talking to someone online can help. So feel free to chat with others who are online here.
-
-🗣️ Share your thoughts, have fun, and spread good vibes!
-
-I’m still working on improving this app and hope to make it even better soon.
-
-🔥 Stay tuned for more updates!.
+            <br /><br />
+            I built this chat app because sometimes we all feel a little down or lonely — and talking to someone online can help. So feel free to chat with others who are online here.
+            <br /><br />
+            🗣️ Share your thoughts, have fun, and spread good vibes!
+            <br /><br />
+            I’m still working on improving this app and hope to make it even better soon.
+            <br /><br />
+            🔥 Stay tuned for more updates!
           </p>
           <div className="hero-buttons">
             <button className="btn primary" onClick={handleTryFree}>Start Chatting With Everyone</button>
@@ -78,39 +99,28 @@ I’m still working on improving this app and hope to make it even better soon.
 
         <div className="hero-right">
           <div className="image-grid">
-           
             <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Chat 2" className="img-secondary" />
             <div className="chat-bubble bubble-1">Hey! You Can Chat With Everyone.</div>
           </div>
         </div>
       </div>
 
-      {/*  Sections */}
-      {/* <section id="product" className="section"></section> */}
-        <Product />
-      {/* </section> */}
+      {/* ✅ Sections */}
+      <section id="product" className="section"><Product /></section>
+      <section id="services" className="section"><Services /></section>
+      <section id="privacy" className="section"><Privacy /></section>
+      <section id="contact" className="section"><Contact /></section>
 
-      {/* <section id="services" className="section"> */}
-        <Services />
-      {/* </section> */}
-
-      {/* <section id="privacy" className="section"> */}
-        <Privacy />
-      {/* </section> */}
-
-      {/* <section id="contact" className="section"> */}
-        <Contact />
-      {/* </section> */}
+      {/* ✅ Footer */}
       <footer className="footer">
-  <p>© 2025 <strong>DavBroApp.com</strong> – All rights reserved.</p>
-</footer>
+        <p>© 2025 <strong>DavBroApp.com</strong> – All rights reserved.</p>
+      </footer>
 
-      {/*  Scroll to Top Button */}
+      {/* ✅ Scroll-to-top Button */}
       {showScrollTop && (
         <button className="scroll-to-top" onClick={scrollToTop}>⬆</button>
       )}
     </div>
-    
   );
 }
 
