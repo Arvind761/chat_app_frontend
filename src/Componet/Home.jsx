@@ -5,6 +5,7 @@ import Product from "./Product";
 import Services from "./Service";
 import Privacy from "./Privacy";
 import Contact from "./Contact";
+import profileImg from '../Componet/profile.png';
 
 function Home() {
   const navigate = useNavigate();
@@ -124,7 +125,7 @@ function Home() {
         <div className="hero-right">
           <div className="image-grid">
             <img
-              src="https://randomuser.me/api/portraits/women/68.jpg"
+              src={profileImg}
               alt="Chat 2"
               className="img-secondary"
             />
